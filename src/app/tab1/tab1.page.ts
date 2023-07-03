@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ApiService } from "../services/api.service";
+import { Product } from "../interfaces/product";
 
 @Component({
   selector: 'app-tab1',
@@ -7,6 +9,14 @@ import { Component } from '@angular/core';
 })
 export class Tab1Page {
 
-  constructor() {}
+  products: Product[] = [];
+
+  constructor(private api: ApiService) {}
+
+  ngOnInit() {
+    this.api.getAllProducts().subscribe((res) => {
+      this.products = res.products;
+    });
+  }
 
 }
